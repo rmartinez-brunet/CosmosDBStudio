@@ -40,7 +40,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\..\src\CosmosDBStudio\CosmosDBStudio.csproj</EntryPointProjectUniqueName>
-    <PackageCertificateThumbprint>7B369B2CB685CADD4C2573B9399DEAD43B579E23</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>FDDB2AC13872F81E383051707DD056CA1A6BE8BF</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <None Include="CosmosDBStudio.Packaging_TemporaryKey.pfx" />
     <Content Include="Images\BadgeLogo.scale-100.png" />
     <Content Include="Images\BadgeLogo.scale-125.png" />
     <Content Include="Images\BadgeLogo.scale-150.png" />

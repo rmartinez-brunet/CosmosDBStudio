@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using Azure.Identity;
 using Microsoft.Azure.Cosmos;
 
 namespace CosmosDBStudio.Model.Services.Implementation
@@ -30,7 +31,8 @@ namespace CosmosDBStudio.Model.Services.Implementation
 
         private CosmosClient CreateClient(CosmosAccount account)
         {
-            return new CosmosClient(account.Endpoint, account.Key);
+            var credentials = new DefaultAzureCredential();
+            return new CosmosClient(account.Endpoint, credentials);
         }
     }
 }
