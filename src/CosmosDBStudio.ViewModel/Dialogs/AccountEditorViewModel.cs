@@ -80,7 +80,7 @@ namespace CosmosDBStudio.ViewModel.Dialogs
         private static string ValidateKey(string key)
         {
             if (string.IsNullOrEmpty(key))
-                return "The account key must be specified";
+                return string.Empty;
 
             try
             {

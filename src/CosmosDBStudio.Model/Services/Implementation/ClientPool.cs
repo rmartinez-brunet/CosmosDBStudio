@@ -30,9 +30,9 @@ namespace CosmosDBStudio.Model.Services.Implementation
         }
 
         private CosmosClient CreateClient(CosmosAccount account)
-        {
-            var credentials = new DefaultAzureCredential();
-            return new CosmosClient(account.Endpoint, credentials);
-        }
+            => string.IsNullOrEmpty(account.Key)
+                ? new CosmosClient(account.Endpoint, new DefaultAzureCredential())
+                : new CosmosClient(account.Endpoint, account.Key);
+        
     }
 }
