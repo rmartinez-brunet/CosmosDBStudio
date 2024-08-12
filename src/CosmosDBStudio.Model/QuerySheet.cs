@@ -4,7 +4,7 @@ namespace CosmosDBStudio.Model
 {
     public class QuerySheet
     {
-        private const string DefaultQuery = "select distinct value c.docType from c";
+        private const string DefaultQuery = "select distinct value c.docType from c\r\n\r\nselect * from c";
         public const string FileFilter = "Cosmos DB Studio query sheet|*.cdbsqs";
 
         public string Text { get; set; } = DefaultQuery;
