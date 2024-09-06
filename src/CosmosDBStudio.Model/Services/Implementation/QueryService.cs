@@ -22,29 +22,37 @@ namespace CosmosDBStudio.Model.Services.Implementation
         {
             var queryDefinition = CreateQueryDefinition(query);
             var requestOptions = CreateRequestOptions(query);
+
             var iterator = _containerGetter().GetItemQueryIterator<JToken>(queryDefinition, continuationToken, requestOptions);
+            
             var result = new QueryResult(query);
+
+
             var stopwatch = new Stopwatch();
+            
             List<string>? warnings = null;
+            
+            List<JToken> items = new();
             try
             {
                 stopwatch.Start();
-                var response = await iterator.ReadNextAsync();
-                stopwatch.Stop();
-                result.RequestCharge += response.RequestCharge;
-                try
+                while (iterator.HasMoreResults)
                 {
-                    result.ContinuationToken = response.ContinuationToken;
-                }
-                catch (Exception ex)
-                {
-                    warnings ??= new List<string>();
-                    warnings.Add(ex.Message);
-                }
+                    var response = await iterator.ReadNextAsync();
+                    stopwatch.Stop();
+                    result.RequestCharge += response.RequestCharge;
+                    try
+                    {
+                        result.ContinuationToken = response.ContinuationToken;
+                    }
+                    catch (Exception ex)
+                    {
+                        warnings ??= new List<string>();
+                        warnings.Add(ex.Message);
+                    }
 
-                result.Items = response.ToList();
-                if (warnings != null)
-                    result.Warnings = warnings;
+                    items.AddRange(response.ToList());
+                }
             }
             catch (Exception ex)
             {
@@ -52,6 +60,9 @@ namespace CosmosDBStudio.Model.Services.Implementation
             }
             finally
             {
+                result.Items = items;
+
+                result.Warnings = warnings ?? Enumerable.Empty<string>();
                 stopwatch.Stop();
             }
 
